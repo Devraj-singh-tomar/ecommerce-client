@@ -63,6 +63,7 @@
     color: $color3;
 
     &:hover {
+      transition: all 300ms ease-in-out;
       opacity: 0.8;
     }
   }
@@ -157,6 +158,7 @@
       font-size: 1.1rem;
 
       &:hover {
+        transition: all 300ms ease-in-out;
         opacity: 0.9;
       }
     }
