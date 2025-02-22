@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa6";
 import { LuLogIn } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
-const user = { id: "asdads", role: "admin" };
+const user = { id: "", role: "" };
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

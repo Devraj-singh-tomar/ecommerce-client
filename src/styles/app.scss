@@ -46,6 +46,7 @@ $color3: darkturquoise;
 @import "home";
 @import "cart.scss";
 @import "shipping.scss";
+@import "login.scss";
 
 @import "admin-styles/dashboard";
 @import "admin-styles/products";
@@ -99,6 +100,12 @@ $color3: darkturquoise;
       @include flex(column, flex-start, center, 0.25rem);
     }
   }
+}
+
+.heading {
+  @include heading();
+  font-weight: 700;
+  text-align: center;
 }
 
 .admin-container {
