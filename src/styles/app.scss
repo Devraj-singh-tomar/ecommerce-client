@@ -38,12 +38,13 @@ a {
 }
 
 $color1: white;
-$color2: white;
+$color2: black;
 $color3: darkturquoise;
 
 @import "admin-styles/mixin";
 
 @import "home";
+@import "cart.scss";
 
 @import "admin-styles/dashboard";
 @import "admin-styles/products";
@@ -58,7 +59,7 @@ $color3: darkturquoise;
   border-radius: 10px;
   box-shadow: 1px 5px 10px rgba(255, 255, 255, 0.1);
   a {
-    color: $color2;
+    color: $color1;
     letter-spacing: 2px;
     font-size: 1.2rem;
     font-weight: 700;
