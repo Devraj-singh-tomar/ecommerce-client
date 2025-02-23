@@ -1,8 +1,11 @@
 .dashboard-product-box {
   background-color: white;
-  padding: 2rem;
+  padding: 0.1rem;
   overflow: auto;
-  @include square(100%);
+  margin: auto;
+  border-radius: 10px;
+  color: $color2;
+  @include square(90%);
 }
 
 .create-product-btn {
