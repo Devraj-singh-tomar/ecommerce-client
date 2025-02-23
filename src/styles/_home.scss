@@ -104,9 +104,9 @@
 }
 
 .product-card {
-  width: 15rem;
-  height: 20rem;
-  padding: 1rem;
+  width: 14rem;
+  height: 19rem;
+  padding: 0.5rem;
   flex: none;
   @include flex(column, flex-start, center, 4px);
   position: relative;
@@ -120,7 +120,7 @@
 
   img {
     // @include square(calc(18.75rem - 10rem));
-    width: 80%;
+    width: 70%;
     object-fit: cover;
     margin: 1rem;
   }
@@ -150,7 +150,7 @@
     button,
     a {
       @include flex;
-      @include square(3rem);
+      @include square(2.5rem);
       border-radius: 10px;
       border: none;
       background-color: $color3;
