@@ -3,10 +3,13 @@ import { FaSearch, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import { FaUser } from "react-icons/fa6";
 import { LuLogIn } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { User } from "../types/type";
 
-const user = { id: "", role: "" };
+interface PropsType {
+  user: User | null;
+}
 
-const Header = () => {
+const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = () => {};
@@ -25,7 +28,7 @@ const Header = () => {
         <FaShoppingCart />
       </Link>
 
-      {user?.id ? (
+      {user?._id ? (
         <>
           <button onClick={() => setIsOpen((prev) => !prev)}>
             <FaUser />
