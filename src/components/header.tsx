@@ -4,6 +4,9 @@ import { FaUser } from "react-icons/fa6";
 import { LuLogIn } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { User } from "../types/type";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import toast from "react-hot-toast";
 
 interface PropsType {
   user: User | null;
@@ -12,7 +15,16 @@ interface PropsType {
 const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const logoutHandler = () => {};
+  const logoutHandler = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logout successfull");
+
+      setIsOpen(false);
+    } catch (error) {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <nav className="header">
