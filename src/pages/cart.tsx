@@ -1,16 +1,36 @@
 import { useEffect, useState } from "react";
 import { MdErrorOutline } from "react-icons/md";
-import CartItem from "../components/cart-item";
+import CartItemCard from "../components/cart-item";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Rootstate } from "../redux/store";
+import { addToCart, removeCartItem } from "../redux/reducer/cart-reducer";
+import { CartItem } from "../types/type";
 
 const Cart = () => {
   const { cartItems, subtotal, tax, total, discount, shippingCharges } =
     useSelector((state: Rootstate) => state.cartReducer);
 
+  const dispatch = useDispatch();
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
+
+  const incrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity >= cartItem.stock) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+
+  const decrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity <= 1) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+
+  const removeHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -31,7 +51,15 @@ const Cart = () => {
     <div className="cart">
       <main>
         {cartItems.length > 0 ? (
-          cartItems.map((i, idx) => <CartItem key={idx} cartItem={i} />)
+          cartItems.map((i, idx) => (
+            <CartItemCard
+              incrementHandler={incrementHandler}
+              decrementHandler={decrementHandler}
+              removeHandler={removeHandler}
+              key={idx}
+              cartItem={i}
+            />
+          ))
         ) : (
           <h1>No items in cart</h1>
         )}

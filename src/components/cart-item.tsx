@@ -1,12 +1,21 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { server } from "../redux/store";
+import { type CartItem } from "../types/type";
 
 type CartItemProps = {
-  cartItem: any;
+  cartItem: CartItem;
+  incrementHandler: (cartItem: CartItem) => void;
+  decrementHandler: (cartItem: CartItem) => void;
+  removeHandler: (id: string) => void;
 };
 
-const CartItem = ({ cartItem }: CartItemProps) => {
+const CartItem = ({
+  cartItem,
+  decrementHandler,
+  incrementHandler,
+  removeHandler,
+}: CartItemProps) => {
   const { photo, productId, name, price, quantity } = cartItem;
 
   return (
@@ -19,12 +28,12 @@ const CartItem = ({ cartItem }: CartItemProps) => {
       </article>
 
       <div>
-        <button>-</button>
+        <button onClick={() => decrementHandler(cartItem)}>-</button>
         <p>{quantity}</p>
-        <button>+</button>
+        <button onClick={() => incrementHandler(cartItem)}>+</button>
       </div>
 
-      <button>
+      <button onClick={() => removeHandler(productId)}>
         <FaTrashAlt />
       </button>
     </div>
