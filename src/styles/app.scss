@@ -128,6 +128,7 @@ $color3: darkturquoise;
   @include grid(1fr 4fr, 2rem);
   height: 100vh;
   background-color: rgb(247, 247, 247);
+  color: $color2;
   > aside {
     width: 100%;
     background-color: white;

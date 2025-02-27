@@ -19,7 +19,7 @@ export type UserResponse = {
 };
 
 export type AllProductsResponse = {
-  success: true;
+  success: boolean;
   products: Product[];
 };
 
@@ -38,6 +38,11 @@ export type SearchProductsRequest = {
   category: string;
   search: string;
   sort: string;
+};
+
+export type ProductsResponse = {
+  success: boolean;
+  product: Product;
 };
 
 export type NewProductRequest = {
