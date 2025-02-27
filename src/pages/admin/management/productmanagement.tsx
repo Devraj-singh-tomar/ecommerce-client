@@ -3,14 +3,20 @@ import { FaTrash } from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { Rootstate, server } from "../../../redux/store";
 import { useSelector } from "react-redux";
-import { useProductDetailsQuery } from "../../../redux/api/productAPI";
+import {
+  useDeleteProductMutation,
+  useProductDetailsQuery,
+  useUpdateProductMutation,
+} from "../../../redux/api/productAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { Skeleton } from "../../../components/loader";
+import { responsetoast } from "../../../utils/feature";
 
 const Productmanagement = () => {
   const { user } = useSelector((state: Rootstate) => state.userReducer);
 
   const params = useParams();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useProductDetailsQuery(params.id!);
 
@@ -26,8 +32,12 @@ const Productmanagement = () => {
   const [stockUpdate, setStockUpdate] = useState<number>(stock);
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
-  const [photoUpdate, setPhotoUpdate] = useState<string>(photo);
+  const [photoUpdate, setPhotoUpdate] = useState<string>("");
   const [photoFile, setPhotoFile] = useState<File>();
+
+  const [updateProduct] = useUpdateProductMutation();
+
+  const [deleteProduct] = useDeleteProductMutation();
 
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -45,8 +55,34 @@ const Productmanagement = () => {
     }
   };
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>): void => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData();
+
+    if (nameUpdate) formData.set("name", name);
+    if (priceUpdate) formData.set("price", priceUpdate.toString());
+    if (stockUpdate !== undefined)
+      formData.set("stock", stockUpdate.toString());
+    if (photoFile) formData.set("photo", photoFile);
+    if (categoryUpdate) formData.set("category", categoryUpdate);
+
+    const res = await updateProduct({
+      formData,
+      userId: user?._id!,
+      productId: data?.product._id!,
+    });
+
+    responsetoast(res, navigate, "/admin/product");
+  };
+
+  const deleteHandler = async () => {
+    const res = await deleteProduct({
+      userId: user?._id!,
+      productId: data?.product._id!,
+    });
+
+    responsetoast(res, navigate, "/admin/product");
   };
 
   useEffect(() => {
@@ -78,9 +114,10 @@ const Productmanagement = () => {
               <h3>₹{price}</h3>
             </section>
             <article>
-              <button className="product-delete-btn">
+              <button onClick={deleteHandler} className="product-delete-btn">
                 <FaTrash />
               </button>
+
               <form onSubmit={submitHandler}>
                 <h2>Manage</h2>
                 <div>
