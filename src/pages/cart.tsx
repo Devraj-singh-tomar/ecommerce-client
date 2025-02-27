@@ -2,26 +2,13 @@ import { useEffect, useState } from "react";
 import { MdErrorOutline } from "react-icons/md";
 import CartItem from "../components/cart-item";
 import { Link } from "react-router-dom";
-
-const cartItems = [
-  {
-    productId: "asddasd",
-    photo:
-      "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s23-5g-1.jpg",
-    name: "Samsung",
-    price: 4000,
-    quantity: 4,
-    stock: 20,
-  },
-];
-
-const subtotal = 4000;
-const tax = Math.round(subtotal * 0.18);
-const shippingCharges = 200;
-const discount = 500;
-const total = subtotal + tax + shippingCharges;
+import { useSelector } from "react-redux";
+import { Rootstate } from "../redux/store";
 
 const Cart = () => {
+  const { cartItems, subtotal, tax, total, discount, shippingCharges } =
+    useSelector((state: Rootstate) => state.cartReducer);
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
