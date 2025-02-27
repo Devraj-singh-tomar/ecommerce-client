@@ -36,6 +36,7 @@
   > main {
     width: 100%;
     padding: 0rem 0rem;
+    height: 100%;
 
     > h1 {
       font-weight: 700;
@@ -57,7 +58,8 @@
     .search-product-list {
       @include flex(row, flex-start, flex-start);
       flex-wrap: wrap;
-      height: calc(100% - 10rem);
+      // height: 100%;
+      // height: calc(100% - 10rem);
       overflow-y: auto;
     }
     // $p: 0.5rem 1rem, $bg, $color
