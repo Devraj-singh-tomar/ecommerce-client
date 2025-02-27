@@ -1,8 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { Rootstate } from "../redux/store";
+import { useSelector } from "react-redux";
 
 const Shipping = () => {
+  const { cartItems } = useSelector((state: Rootstate) => state.cartReducer);
+
   const navigate = useNavigate();
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -22,6 +26,12 @@ const Shipping = () => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    if (cartItems.length <= 0) {
+      navigate("/cart");
+    }
+  }, [cartItems]);
 
   return (
     <div className="shipping">
