@@ -1,15 +1,15 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { Rootstate, server } from "../../../redux/store";
 import { useSelector } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import AdminSidebar from "../../../components/admin/AdminSidebar";
+import { Skeleton } from "../../../components/loader";
 import {
   useDeleteProductMutation,
   useProductDetailsQuery,
   useUpdateProductMutation,
 } from "../../../redux/api/productAPI";
-import { useNavigate, useParams } from "react-router-dom";
-import { Skeleton } from "../../../components/loader";
+import { Rootstate, server } from "../../../redux/store";
 import { responsetoast } from "../../../utils/feature";
 
 const Productmanagement = () => {
@@ -18,7 +18,7 @@ const Productmanagement = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useProductDetailsQuery(params.id!);
+  const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
   const { category, name, photo, price, stock } = data?.product || {
     photo: "",
@@ -93,6 +93,8 @@ const Productmanagement = () => {
       setCategoryUpdate(data.product.category);
     }
   }, [data]);
+
+  if (isError) return <Navigate to={"/404"} />;
 
   return (
     <div className="admin-container">
