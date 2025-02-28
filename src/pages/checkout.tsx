@@ -7,8 +7,13 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { NewOrderRequest } from "../types/api-types";
+import { Rootstate } from "../redux/store";
+import { useNewOrderMutation } from "../redux/api/orderAPI";
+import { resetCart } from "../redux/reducer/cart-reducer";
+import { responsetoast } from "../utils/feature";
 
 const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
@@ -22,6 +27,20 @@ const CheckoutForm = () => {
 
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
+  const { user } = useSelector((state: Rootstate) => state.userReducer);
+
+  const {
+    cartItems,
+    discount,
+    shippingCharges,
+    shippingInfo,
+    subtotal,
+    tax,
+    total,
+  } = useSelector((state: Rootstate) => state.cartReducer);
+
+  const [newOrder] = useNewOrderMutation();
+
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,7 +48,16 @@ const CheckoutForm = () => {
 
     setIsProcessing(true);
 
-    const orderData = {};
+    const orderData: NewOrderRequest = {
+      shippingInfo,
+      orderItems: cartItems,
+      subtotal,
+      discount,
+      shippingCharges,
+      tax,
+      total,
+      user: user?._id!,
+    };
 
     const { paymentIntent, error } = await stripe.confirmPayment({
       elements,
@@ -45,9 +73,11 @@ const CheckoutForm = () => {
     }
 
     if (paymentIntent.status === "succeeded") {
-      console.log("placing order");
+      const res = await newOrder(orderData);
 
-      navigate("/orders");
+      dispatch(resetCart());
+
+      responsetoast(res, navigate, "/orders");
     }
 
     setIsProcessing(false);
