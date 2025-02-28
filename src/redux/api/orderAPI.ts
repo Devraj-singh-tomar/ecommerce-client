@@ -7,7 +7,7 @@ import {
   UpdateOrderRequest,
 } from "../../types/api-types";
 
-export const orderApi = createApi({
+export const orderAPI = createApi({
   reducerPath: "orderApi",
 
   baseQuery: fetchBaseQuery({
@@ -72,4 +72,4 @@ export const {
   useMyOrdersQuery,
   useAllOrdersQuery,
   useOrderDetailsQuery,
-} = orderApi;
+} = orderAPI;
