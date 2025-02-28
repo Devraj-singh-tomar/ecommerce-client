@@ -70,6 +70,15 @@ $color3: darkturquoise;
   }
 }
 
+.not-found {
+  height: 80vh;
+
+  @include flex(column);
+  > svg {
+    font-size: 4rem;
+  }
+}
+
 .header {
   @include flex(row, flex-end, stretch, 1.6rem);
   padding: 1rem;
