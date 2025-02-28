@@ -127,6 +127,29 @@ $color3: darkturquoise;
   }
 }
 
+.checkout-container {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  @include flex;
+  overflow-y: auto;
+
+  > form {
+    @include flex(column, flex-start, stretch, 2rem);
+    max-width: 400px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    padding: 4rem;
+    border-radius: 10px;
+    > button {
+      @include btn(1rem, $color3, $color2);
+      width: 100%;
+      border-radius: 10px;
+
+      font-size: 1.1rem;
+    }
+  }
+}
+
 .heading {
   @include heading();
   font-weight: 700;
