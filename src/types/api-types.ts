@@ -13,10 +13,28 @@ export type MessageResponse = {
   message: string;
 };
 
+/*========
+=== USER's TYPE
+========== */
+
 export type UserResponse = {
   success: boolean;
   user: User;
 };
+
+export type AllUsersResponse = {
+  success: boolean;
+  users: User[];
+};
+
+export type DeleteUserResponse = {
+  userId: string;
+  adminUserId: string;
+};
+
+/*========
+=== PRODUCT TYPE
+========== */
 
 export type AllProductsResponse = {
   success: boolean;
@@ -60,6 +78,10 @@ export type DeleteProductRequest = {
   userId: string;
   productId: string;
 };
+
+/*========
+=== ORDER'S TYPE
+========== */
 
 export type NewOrderRequest = {
   shippingInfo: ShippingInfo;
