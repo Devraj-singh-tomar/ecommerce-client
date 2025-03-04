@@ -16,43 +16,6 @@
     background: url("../assets/cover.jpg") no-repeat center / cover;
   }
 
-  // > div {
-  //   @include flex;
-  //   align-items: stretch;
-  //   margin: 2rem 0;
-  //   gap: 5rem;
-
-  //   aside {
-  //     width: 10%;
-  //     // border: 1px solid $color3;
-  //     flex: none;
-
-  //     h1 {
-  //       @include heading(1px);
-  //       margin-bottom: 3rem;
-  //       @include flex(row, space-between, center);
-  //       &::before {
-  //         content: "";
-  //         width: 3px;
-  //         height: 2rem;
-  //         background-color: $color3;
-  //         position: absolute;
-  //         transform: translateX(-1rem);
-  //       }
-  //     }
-
-  //     > ul {
-  //       @include flex(column, flex-start, flex-start);
-  //       list-style: none;
-  //       > li {
-  //         cursor: pointer;
-  //         color: red;
-  //         flex: none;
-  //       }
-  //     }
-  //   }
-  // }
-
   > h1 {
     @include heading(1px, 600);
     margin-top: 3rem;
@@ -72,7 +35,6 @@
     width: 100%;
     margin: 1rem 0;
     display: flex;
-    justify-content: space-between;
     flex: 1;
     gap: 1rem;
     overflow-x: auto;

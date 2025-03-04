@@ -21,19 +21,23 @@ const Productmanagement = () => {
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
-  const { category, name, photos, price, stock } = data?.product || {
-    photos: [],
-    category: "",
-    name: "",
-    stock: 0,
-    price: 0,
-  };
+  const { category, name, photos, price, stock, description } =
+    data?.product || {
+      photos: [],
+      category: "",
+      name: "",
+      stock: 0,
+      price: 0,
+      description: "",
+    };
 
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
   const [priceUpdate, setPriceUpdate] = useState<number>(price);
   const [stockUpdate, setStockUpdate] = useState<number>(stock);
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
+  const [descriptionUpdate, setDescriptionUpdate] =
+    useState<string>(description);
 
   const [updateProduct] = useUpdateProductMutation();
 
@@ -49,6 +53,7 @@ const Productmanagement = () => {
       const formData = new FormData();
 
       if (nameUpdate) formData.set("name", nameUpdate);
+      if (descriptionUpdate) formData.set("description", descriptionUpdate);
       if (priceUpdate) formData.set("price", priceUpdate.toString());
       if (stockUpdate !== undefined)
         formData.set("stock", stockUpdate.toString());
@@ -90,6 +95,7 @@ const Productmanagement = () => {
       setPriceUpdate(data.product.price);
       setStockUpdate(data.product.stock);
       setCategoryUpdate(data.product.category);
+      setDescriptionUpdate(data.product.description);
     }
   }, [data]);
 
@@ -98,6 +104,7 @@ const Productmanagement = () => {
   return (
     <div className="admin-container">
       <AdminSidebar />
+
       <main className="product-management">
         {isLoading ? (
           <Skeleton length={10} />
@@ -105,8 +112,10 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {data?.product._id}</strong>
+
               <img src={photos[0]?.url} alt="Product" />
               <p>{name}</p>
+
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
               ) : (
@@ -121,6 +130,7 @@ const Productmanagement = () => {
 
               <form onSubmit={submitHandler}>
                 <h2>Manage</h2>
+
                 <div>
                   <label>Name</label>
                   <input
@@ -130,6 +140,7 @@ const Productmanagement = () => {
                     onChange={(e) => setNameUpdate(e.target.value)}
                   />
                 </div>
+
                 <div>
                   <label>Price</label>
                   <input
@@ -139,6 +150,17 @@ const Productmanagement = () => {
                     onChange={(e) => setPriceUpdate(Number(e.target.value))}
                   />
                 </div>
+
+                <div>
+                  <label>Description</label>
+                  <textarea
+                    required
+                    placeholder="Product description"
+                    value={descriptionUpdate}
+                    onChange={(e) => setDescriptionUpdate(e.target.value)}
+                  />
+                </div>
+
                 <div>
                   <label>Stock</label>
                   <input
@@ -171,10 +193,28 @@ const Productmanagement = () => {
 
                 {photosFiles.error && <p>{photosFiles.error}</p>}
 
-                {photosFiles.preview &&
-                  photosFiles.preview.map((img, i) => (
-                    <img key={i} src={img} alt="image" />
-                  ))}
+                {photosFiles.preview && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      overflowX: "auto",
+                    }}
+                  >
+                    {photosFiles.preview.map((img, i) => (
+                      <img
+                        style={{
+                          width: 100,
+                          height: 100,
+                          objectFit: "cover",
+                        }}
+                        key={i}
+                        src={img}
+                        alt="image"
+                      />
+                    ))}
+                  </div>
+                )}
 
                 <button disabled={btnLoading} type="submit">
                   {btnLoading ? "Updating" : "Update"}

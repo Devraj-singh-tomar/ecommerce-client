@@ -25,7 +25,7 @@ const NewProduct = () => {
   const [category, setCategory] = useState<string>("");
   const [price, setPrice] = useState<number>(1000);
   const [stock, setStock] = useState<number>(1);
-  // const [photo, setPhoto] = useState<File>();
+  const [description, setDescription] = useState<string>("");
 
   const photos = useFileHandler("multiple", 15, 5);
 
@@ -42,6 +42,7 @@ const NewProduct = () => {
       const formData = new FormData();
 
       formData.set("name", name);
+      formData.set("description", description);
       formData.set("price", price.toString());
       formData.set("stock", stock.toString());
       formData.set("category", category);
@@ -63,10 +64,12 @@ const NewProduct = () => {
   return (
     <div className="admin-container">
       <AdminSidebar />
+
       <main className="product-management">
         <article>
           <form onSubmit={submitHandler}>
             <h2>New Product</h2>
+
             <div>
               <label>Name</label>
               <input
@@ -77,6 +80,7 @@ const NewProduct = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
+
             <div>
               <label>Price</label>
               <input
@@ -87,6 +91,17 @@ const NewProduct = () => {
                 onChange={(e) => setPrice(Number(e.target.value))}
               />
             </div>
+
+            <div>
+              <label>Description</label>
+              <textarea
+                required
+                placeholder="Product description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
             <div>
               <label>Stock</label>
               <input
@@ -122,10 +137,28 @@ const NewProduct = () => {
 
             {photos.error && <p>{photos.error}</p>}
 
-            {photos.preview &&
-              photos.preview.map((img, i) => (
-                <img key={i} src={img} alt="image" />
-              ))}
+            {photos.preview && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "5px",
+                  overflowX: "auto",
+                }}
+              >
+                {photos.preview.map((img, i) => (
+                  <img
+                    style={{
+                      width: 100,
+                      height: 100,
+                      objectFit: "cover",
+                    }}
+                    key={i}
+                    src={img}
+                    alt="image"
+                  />
+                ))}
+              </div>
+            )}
 
             <button type="submit" disabled={isLoading}>
               {isLoading ? "Creating" : "Create"}
