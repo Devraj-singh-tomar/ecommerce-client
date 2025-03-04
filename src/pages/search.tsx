@@ -127,7 +127,7 @@ const Search = () => {
                 name={i.name}
                 price={i.price}
                 stock={i.stock}
-                photo={i.photo}
+                photos={i.photos}
                 handler={addToCartHandler}
               />
             ))}

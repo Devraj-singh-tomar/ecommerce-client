@@ -1,5 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 import { CartItem } from "../types/type";
+import { Link } from "react-router-dom";
+import { BsEyeFill } from "react-icons/bs";
 
 type ProductsProps = {
   productId: string;
@@ -42,6 +44,10 @@ const ProductCard = ({
         >
           <FaPlus />
         </button>
+
+        <Link to={`/product/${productId}`}>
+          <BsEyeFill />
+        </Link>
       </div>
     </div>
   );
