@@ -1,6 +1,7 @@
 import {
   Bar,
   CartItem,
+  CouponType,
   Line,
   Order,
   Pie,
@@ -141,4 +142,14 @@ export type BarResponse = {
 export type LineResponse = {
   success: boolean;
   charts: Line;
+};
+
+export type AllDiscountResponse = {
+  success: boolean;
+  coupons: CouponType[];
+};
+
+export type GetSingleCouponResponse = {
+  success: boolean;
+  coupons: CouponType[];
 };

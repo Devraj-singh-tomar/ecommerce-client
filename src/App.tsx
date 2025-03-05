@@ -40,6 +40,11 @@ const ProductManagement = lazy(
 const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
+const Discount = lazy(() => import("./pages/admin/discount"));
+const DiscountManagement = lazy(
+  () => import("./pages/admin/management/discount-management")
+);
+const NewDiscount = lazy(() => import("./pages/admin/management/new-discount"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -111,6 +116,7 @@ const App = () => {
               <Route path="/admin/product" element={<Products />} />
               <Route path="/admin/customer" element={<Customers />} />
               <Route path="/admin/transaction" element={<Transaction />} />
+              <Route path="/admin/discount" element={<Discount />} />
               {/*======================== Charts =======================*/}
               <Route path="/admin/chart/bar" element={<Barcharts />} />
               <Route path="/admin/chart/pie" element={<Piecharts />} />
@@ -131,6 +137,13 @@ const App = () => {
               <Route
                 path="/admin/transaction/:id"
                 element={<TransactionManagement />}
+              />
+
+              <Route path="/admin/discount/new" element={<NewDiscount />} />
+
+              <Route
+                path="/admin/discount/:id"
+                element={<DiscountManagement />}
               />
             </Route>
 
