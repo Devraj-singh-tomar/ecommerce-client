@@ -8,7 +8,7 @@ import {
   useOrderDetailsQuery,
   useUpdateOrderMutation,
 } from "../../../redux/api/orderAPI";
-import { Rootstate, server } from "../../../redux/store";
+import { Rootstate } from "../../../redux/store";
 import { Order, OrderItem } from "../../../types/type";
 import { responsetoast } from "../../../utils/feature";
 
@@ -94,7 +94,7 @@ const TransactionManagement = () => {
                 <ProductCard
                   key={i._id}
                   name={i.name}
-                  photo={`${server}/${i.photo}`}
+                  photo={i.photo}
                   productId={i.productId}
                   _id={i._id}
                   quantity={i.quantity}

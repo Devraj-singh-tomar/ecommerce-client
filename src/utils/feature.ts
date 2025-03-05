@@ -58,3 +58,9 @@ export const getLastMonths = () => {
     last6Months,
   };
 };
+
+// transform image to low quality to load fast => transformImage(photos[0].url) usage
+export const transformImage = (url: string, width = 100) => {
+  const newUrl = url.replace("upload/", `upload/dpr_auto/w_${width}/`);
+  return newUrl;
+};
