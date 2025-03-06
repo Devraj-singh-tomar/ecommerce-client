@@ -182,7 +182,8 @@
 }
 
 .review {
-  background-color: $color3;
+  background-color: $color2;
+  border: 1px solid cyan;
   width: 100%;
   max-width: 35rem;
   flex: none;
@@ -194,6 +195,7 @@
   justify-content: space-between;
   gap: 1rem;
   position: relative;
+  color: $color1;
 
   > div {
     display: flex;
@@ -226,6 +228,9 @@
     align-items: center;
     justify-content: center;
     padding: 0.3rem;
+    // color: #afec55;
+    // background-color: aqua;
+    // z-index: 99;
 
     &:hover {
       background-color: red;

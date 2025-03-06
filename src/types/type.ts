@@ -20,6 +20,19 @@ export type Product = {
   _id: string;
   ratings: number;
   description: string;
+  numOfReviews: number;
+};
+
+export type Review = {
+  rating: number;
+  comment: string;
+  product: string;
+  user: {
+    name: string;
+    _id: string;
+    photo: string;
+  };
+  _id: string;
 };
 
 export type ShippingInfo = {
