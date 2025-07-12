@@ -9,6 +9,7 @@ import {
   calculatePrice,
   discountApplied,
   removeCartItem,
+  saveCoupon,
 } from "../redux/reducer/cart-reducer";
 import { CartItem } from "../types/type";
 import axios from "axios";
@@ -48,6 +49,7 @@ const Cart = () => {
         })
         .then((res) => {
           dispatch(discountApplied(res.data.discount));
+          dispatch(saveCoupon(couponCode));
           setIsValidCouponCode(true);
           dispatch(calculatePrice());
         })
